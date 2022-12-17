@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using Random = UnityEngine.Random;
 
 public class ProgrammManager : MonoBehaviour
 {
@@ -19,6 +21,8 @@ public class ProgrammManager : MonoBehaviour
     [SerializeField] private Camera ARCamera;
 
     private Vector2 TouchPosition;
+    private GameObject fieldObject;
+    private InputField field;
 
     public bool ChooseObject = false;
 
@@ -56,7 +60,25 @@ public class ProgrammManager : MonoBehaviour
        // set object
         if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
         {
-            Instantiate(ObjectToSpawn, hits[0].pose.position, ObjectToSpawn.transform.rotation);
+
+            fieldObject = GameObject.Find("InputField");
+            field = fieldObject.GetComponent<InputField>();
+
+            int dicesCount = 1;
+			bool countFieldIsInteger = int.TryParse(field.text, out dicesCount);
+
+            if (countFieldIsInteger && dicesCount > 0)
+            {
+                for (int i = 0; i < dicesCount; i++)
+                {
+                    Instantiate(ObjectToSpawn, new Vector3((float)(hits[0].pose.position.x + 0.1 * (i + 1)), hits[0].pose.position.y + 1, hits[0].pose.position.z), Random.rotation);
+                }
+            } 
+            else
+			{
+                Instantiate(ObjectToSpawn, new Vector3(hits[0].pose.position.x, hits[0].pose.position.y + 1, hits[0].pose.position.z), Random.rotation);
+            }
+
             ChooseObject = false;
             PlaneMarkerPrefab.SetActive(false);
         }
