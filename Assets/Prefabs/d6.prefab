@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2920470516081845317}
   - component: {fileID: -144952069732464363}
   - component: {fileID: -1717821662432699426}
-  - component: {fileID: 1605670746681365723}
+  - component: {fileID: 1133115702665021791}
   m_Layer: 0
   m_Name: d6
   m_TagString: Untagged
@@ -120,7 +120,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.02, y: 0.019999996, z: 0.02}
   m_Center: {x: 0, y: 0, z: 0.0000000013969836}
---- !u!114 &1605670746681365723
+--- !u!114 &1133115702665021791
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,5 +132,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54443b7ab64cce74ab861eb80938ee93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShellPrefab: {fileID: 3713046395773568400}
-  ThrowSound: {fileID: 8300000, guid: 297b5862142270847bf3aeb681ae2e2e, type: 3}
+  DiceObject: {fileID: 3713046395773568400}
