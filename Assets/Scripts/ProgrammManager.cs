@@ -49,7 +49,7 @@ public class ProgrammManager : MonoBehaviour
     {
         List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
-        ARRaycastManagerScript.Raycast(new Vector2(Screen.width / 2, 0), hits, TrackableType.Planes);
+        ARRaycastManagerScript.Raycast(new Vector2(Screen.width / 2, Screen.height / 2), hits, TrackableType.Planes);
 
         // show marker
         if (hits.Count > 0)
@@ -60,7 +60,6 @@ public class ProgrammManager : MonoBehaviour
        // set object
         if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
         {
-
             fieldObject = GameObject.Find("InputField");
             field = fieldObject.GetComponent<InputField>();
 
@@ -71,15 +70,23 @@ public class ProgrammManager : MonoBehaviour
             {
                 for (int i = 0; i < dicesCount; i++)
                 {
-                    var spawned = Instantiate(ObjectToSpawn, new Vector3((float)(hits[0].pose.position.x + 0.1 * (i + 1)), hits[0].pose.position.y, hits[0].pose.position.z), Random.rotation);
-                    spawned.GetComponent<Rigidbody>()?.AddForce(0, 1, 1, ForceMode.Impulse);
+                    var spawned = Instantiate(ObjectToSpawn, 
+                        new Vector3(
+                            hits[0].pose.position.x + 0.1f * i, 
+                            hits[0].pose.position.y + 0.5f,
+                            hits[0].pose.position.z + 0.1f * i),
+                        Random.rotation);
                     spawned.tag = "Dice";
                 }
             } 
             else
 			{
-                var spawned = Instantiate(ObjectToSpawn, new Vector3(hits[0].pose.position.x, hits[0].pose.position.y, hits[0].pose.position.z), Random.rotation);
-                spawned.GetComponent<Rigidbody>()?.AddForce(0, 1, 1, ForceMode.Impulse);
+                var spawned = Instantiate(ObjectToSpawn,
+                        new Vector3(
+                            hits[0].pose.position.x,
+                            hits[0].pose.position.y + 0.5f,
+                            hits[0].pose.position.z),
+                        Random.rotation);
                 spawned.tag = "Dice";
             }
 
