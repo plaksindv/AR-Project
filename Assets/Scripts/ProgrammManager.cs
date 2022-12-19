@@ -76,6 +76,7 @@ public class ProgrammManager : MonoBehaviour
                             hits[0].pose.position.y + 0.5f,
                             hits[0].pose.position.z + 0.1f * i),
                         Random.rotation);
+                    spawned.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward, ForceMode.Impulse);
                     spawned.tag = "Dice";
                 }
             } 
@@ -87,6 +88,7 @@ public class ProgrammManager : MonoBehaviour
                             hits[0].pose.position.y + 0.5f,
                             hits[0].pose.position.z),
                         Random.rotation);
+                spawned.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward, ForceMode.Impulse);
                 spawned.tag = "Dice";
             }
 
