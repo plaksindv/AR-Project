@@ -41,8 +41,6 @@ public class ProgrammManager : MonoBehaviour
         {
             ShowMarkerAndSetObject();
         }
-
-        MoveObjectAndRotation();
     }
 
     void ShowMarkerAndSetObject()
@@ -94,48 +92,6 @@ public class ProgrammManager : MonoBehaviour
 
             ChooseObject = false;
             PlaneMarkerPrefab.SetActive(false);
-        }
-    }
-
-    void MoveObjectAndRotation()
-    {
-        if(Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-            TouchPosition = touch.position;
-            
-            // Select object
-            if (touch.phase == TouchPhase.Began)
-            {
-                Ray ray = ARCamera.ScreenPointToRay(touch.position);
-                RaycastHit hitObject;
-
-                if (Physics.Raycast(ray, out hitObject))
-                {
-                    if (hitObject.collider.CompareTag("UnSelected"))
-                    {
-                        hitObject.collider.gameObject.tag = "Selected";
-                    }
-                }
-            }
-
-            SelectedObject = GameObject.FindWithTag("Selected");
-
-            // Move Object
-
-            if (touch.phase == TouchPhase.Moved && Input.touchCount == 1 )
-            {
-                ARRaycastManagerScript.Raycast(TouchPosition, hits, TrackableType.Planes);
-                SelectedObject.transform.position = hits[0].pose.position;
-            }
-            // Deselect object
-            if (touch.phase == TouchPhase.Ended)
-            {
-                if (SelectedObject.CompareTag("Selected"))
-                {
-                    SelectedObject.tag = "UnSelected";
-                }
-            }
         }
     }
 }
